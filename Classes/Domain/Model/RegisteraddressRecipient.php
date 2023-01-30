@@ -36,7 +36,8 @@ class RegisteraddressRecipient extends Address implements RecipientInterface
     /**
      * @return string
      */
-    public function getFirstName(): string{
+    public function getFirstName(): ?string
+    {
         return parent::getFirstName();
     }
 
@@ -52,7 +53,7 @@ class RegisteraddressRecipient extends Address implements RecipientInterface
     /**
      * @return string
      */
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
         return parent::getLastName();
     }
