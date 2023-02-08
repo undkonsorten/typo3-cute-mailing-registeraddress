@@ -16,7 +16,7 @@ $EM_CONF[$_EXTKEY] = [
     'constraints' => [
         'depends' => [
             'typo3' => '11.5.0-11.5.99',
-            'cute_mailing' => '1.0.0-1.99.99',
+            'cute_mailing' => '2.0.0-2.99.99',
         ],
     ],
 ];
