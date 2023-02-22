@@ -15,7 +15,7 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
     /**
      * @inheritDoc
      */
-    public function getRecipients(): array
+    public function getRecipients(int $limit = null, int $offset = null): array
     {
         $result = [];
         /**@var $addressRepository AddressRepository * */
@@ -25,9 +25,24 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
         $defaultQuerySettings->setRespectStoragePage(true);
         $defaultQuerySettings->setStoragePageIds([$this->getRecipientListPage()]);
         $addressRepository->setDefaultQuerySettings($defaultQuerySettings);
-        $result = $addressRepository->findAll()->toArray();
+        $result = $addressRepository->findAll($limit, $offset)->toArray();
 
         return $result;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRecipientsCount(): int
+    {
+        /**@var $addressRepository AddressRepository * */
+        $addressRepository = GeneralUtility::makeInstance(RegisteraddressRecipientRepository::class);
+        /**@var $defaultQuerySettings Typo3QuerySettings* */
+        $defaultQuerySettings = $this->defaultQuerySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
+        $defaultQuerySettings->setRespectStoragePage(true);
+        $defaultQuerySettings->setStoragePageIds([$this->getRecipientListPage()]);
+        $addressRepository->setDefaultQuerySettings($defaultQuerySettings);
+        return $addressRepository->findAll()->count();
     }
 
     /**
