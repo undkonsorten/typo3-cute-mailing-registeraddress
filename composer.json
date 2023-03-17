@@ -33,7 +33,7 @@
 		"typo3/cms-core": "^11.5",
 		"typo3/cms-extbase": "^11.5",
 		"undkonsorten/typo3-cute-mailing": "^3.0",
-		"afm/registeraddress": "^2.0"
+		"afm/registeraddress": "^2.0 || ^3 || ^4"
 	},
 	"autoload": {
 		"psr-4": {
