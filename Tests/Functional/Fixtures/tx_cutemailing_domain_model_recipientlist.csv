@@ -1,0 +1,4 @@
+"tx_cutemailing_domain_model_recipientlist",,,,,,,,,,,,,,,,,,,,,,,,,
+,uid,pid,tstamp,crdate,cruser_id,deleted,hidden,starttime,endtime,t3ver_oid,t3ver_wsid,t3ver_state,t3ver_stage,recipient_list_page,type,t3ver_id,t3ver_label,t3ver_count,t3ver_tstamp,t3ver_move_id,sys_language_uid,l10n_parent,l10n_diffsource,record_type,name,line_separated_list
+,1,94,1655993778,1643829906,1,0,0,0,0,0,0,0,0,95,"",0,"",0,0,0,0,0,,Undkonsorten\CuteMailingRegisteraddress\Domain\Model\RegisteraddressRecipientList,Recipients Newsletter,
+

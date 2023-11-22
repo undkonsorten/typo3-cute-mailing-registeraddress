@@ -2,11 +2,12 @@
 
 namespace Undkonsorten\CuteMailingRegisteraddress\Domain\Model;
 
-use FriendsOfTYPO3\TtAddress\Domain\Repository\AddressRepository;
+use AFM\Registeraddress\Domain\Repository\AddressRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use Undkonsorten\CuteMailing\Domain\Model\RecipientList;
 use Undkonsorten\CuteMailing\Domain\Model\RecipientListInterface;
+use Undkonsorten\CuteMailingRegisteraddress\Domain\Repository\RegisteraddressRecipientListRepository;
 use Undkonsorten\CuteMailingRegisteraddress\Domain\Repository\RegisteraddressRecipientRepository;
 
 class RegisteraddressRecipientList extends RecipientList implements RecipientListInterface
@@ -18,13 +19,7 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
     public function getRecipients(int $limit = null, int $offset = null): array
     {
         $result = [];
-        /**@var $addressRepository AddressRepository * */
-        $addressRepository = GeneralUtility::makeInstance(RegisteraddressRecipientRepository::class);
-        /**@var $defaultQuerySettings Typo3QuerySettings* */
-        $defaultQuerySettings = $this->defaultQuerySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
-        $defaultQuerySettings->setRespectStoragePage(true);
-        $defaultQuerySettings->setStoragePageIds([$this->getRecipientListPage()]);
-        $addressRepository->setDefaultQuerySettings($defaultQuerySettings);
+        $addressRepository = $this->getAddressRepository();
         $result = $addressRepository->findAll($limit, $offset)->toArray();
 
         return $result;
@@ -36,12 +31,7 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
     public function getRecipientsCount(): int
     {
         /**@var $addressRepository AddressRepository * */
-        $addressRepository = GeneralUtility::makeInstance(RegisteraddressRecipientRepository::class);
-        /**@var $defaultQuerySettings Typo3QuerySettings* */
-        $defaultQuerySettings = $this->defaultQuerySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
-        $defaultQuerySettings->setRespectStoragePage(true);
-        $defaultQuerySettings->setStoragePageIds([$this->getRecipientListPage()]);
-        $addressRepository->setDefaultQuerySettings($defaultQuerySettings);
+        $addressRepository = $this->getAddressRepository();
         return $addressRepository->findAll()->count();
     }
 
@@ -52,15 +42,86 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
     {
         $result = null;
 
-        /**@var $addressRepository RegisteraddressRecipientRepository * */
+        /**@var $addressRepository RegisteraddressRecipientListRepository * */
+        $addressRepository = $this->getAddressRepository();
+        /** @var RegisteraddressRecipient $result */
+        $result = $addressRepository->findByUid($recipient);
+        return $result;
+    }
+
+    /**
+     * @param string $email
+     * @return void
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     */
+    public function removeRecipientByEmail(string $email): void
+    {
+        /**@var $addressRepository RegisteraddressRecipientListRepository * */
+        $addressRepository = $this->getAddressRepository();
+        $result = $addressRepository->findOneByEmail($email);
+        if(!is_null($result)){
+            $addressRepository->remove($result);
+        }
+    }
+
+    /**
+     * @param string $email
+     * @return void
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     */
+    public function removeRecipientById(int $recipient): void
+    {
+        /**@var $addressRepository RegisteraddressRecipientListRepository * */
+        $addressRepository = $this->getAddressRepository();
+        $result = $addressRepository->findByUid($recipient);
+        if(!is_null($result)){
+            $addressRepository->remove($result);
+        }
+    }
+
+    /**
+     * @param string $email
+     * @return void
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     */
+    public function disableRecipientByEmail(string $email): void
+    {
+        /**@var $addressRepository RegisteraddressRecipientListRepository * */
+        $addressRepository = $this->getAddressRepository();
+        $result = $addressRepository->findOneByEmail($email);
+        $result->setHidden(true);
+        $addressRepository->update($result);
+    }
+
+    /**
+
+     * @param int $recipient
+     * @return void
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     */
+    public function disableRecipientById(int $recipient): void
+    {
+        /**@var $addressRepository RegisteraddressRecipientListRepository * */
+        $addressRepository = $this->getAddressRepository();
+        $result = $addressRepository->findByUid($recipient);
+        $result->setHidden(true);
+        $addressRepository->update($result);
+    }
+
+    /**
+     * @return AddressRepository
+     */
+    protected function getAddressRepository(): AddressRepository
+    {
+        /**@var $addressRepository AddressRepository * */
         $addressRepository = GeneralUtility::makeInstance(RegisteraddressRecipientRepository::class);
         /**@var $defaultQuerySettings Typo3QuerySettings* */
         $defaultQuerySettings = $this->defaultQuerySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $defaultQuerySettings->setRespectStoragePage(true);
         $defaultQuerySettings->setStoragePageIds([$this->getRecipientListPage()]);
         $addressRepository->setDefaultQuerySettings($defaultQuerySettings);
-        /** @var RegisteraddressRecipient $result */
-        $result = $addressRepository->findByUid($recipient);
-        return $result;
+        return $addressRepository;
     }
 }

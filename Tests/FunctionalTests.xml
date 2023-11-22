@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="true" bootstrap="./Bootstrap/FunctionalTestsBootstrap.php" colors="true" stopOnError="false" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" processIsolation="true" beStrictAboutTestsThatDoNotTestAnything="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd" cacheDirectory=".phpunit.cache" requireCoverageMetadata="false">
+  <coverage/>
+  <testsuites>
+    <testsuite name="Functional tests">
+      <directory>./Functional/</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="./build/tests/logfile_functional.xml"/>
+    <testdoxHtml outputFile="./build/tests/testdox_functional.html"/>
+    <testdoxText outputFile="./build/tests/testdox_functional.txt"/>
+  </logging>
+  <source>
+    <include>
+      <directory suffix=".php">../Classes/</directory>
+    </include>
+  </source>
+</phpunit>
