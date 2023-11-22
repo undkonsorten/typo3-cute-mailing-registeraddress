@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/app/vendor/undkonsorten/typo3-cute-mailing-registeraddress/Tests/FunctionalTests.xml" tests="1" assertions="3" errors="0" failures="0" skipped="0" time="0.071140">
+    <testsuite name="Functional tests" tests="1" assertions="3" errors="0" failures="0" skipped="0" time="0.071140">
+      <testsuite name="RegisteraddressRecipientListTest" file="/app/vendor/undkonsorten/typo3-cute-mailing-registeraddress/Tests/Functional/Domain/RegisteraddressRecipientListTest.php" tests="1" assertions="3" errors="0" failures="0" skipped="0" time="0.071140">
+        <testcase name="recipientCanBeDeleted" file="/app/vendor/undkonsorten/typo3-cute-mailing-registeraddress/Tests/Functional/Domain/RegisteraddressRecipientListTest.php" line="32" class="RegisteraddressRecipientListTest" classname="RegisteraddressRecipientListTest" assertions="3" time="0.071140"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
