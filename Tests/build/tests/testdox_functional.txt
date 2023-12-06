@@ -1,3 +1,0 @@
-Registeraddress Recipient List
- [x] Recipient can be deleted
-
