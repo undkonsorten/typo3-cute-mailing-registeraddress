@@ -30,7 +30,6 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
      */
     public function getRecipientsCount(): int
     {
-        /**@var $addressRepository AddressRepository * */
         $addressRepository = $this->getAddressRepository();
         return $addressRepository->findAll()->count();
     }
@@ -41,8 +40,6 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
     public function getRecipient(int $recipient): ?RegisteraddressRecipient
     {
         $result = null;
-
-        /**@var $addressRepository RegisteraddressRecipientListRepository * */
         $addressRepository = $this->getAddressRepository();
         /** @var RegisteraddressRecipient $result */
         $result = $addressRepository->findByUid($recipient);
@@ -56,7 +53,6 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
      */
     public function removeRecipientByEmail(string $email): void
     {
-        /**@var $addressRepository RegisteraddressRecipientListRepository * */
         $addressRepository = $this->getAddressRepository();
         $result = $addressRepository->findOneByEmail($email);
         if(!is_null($result)){
@@ -71,7 +67,6 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
      */
     public function removeRecipientById(int $recipient): void
     {
-        /**@var $addressRepository RegisteraddressRecipientListRepository * */
         $addressRepository = $this->getAddressRepository();
         $result = $addressRepository->findByUid($recipient);
         if(!is_null($result)){
@@ -87,7 +82,6 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
      */
     public function disableRecipientByEmail(string $email): void
     {
-        /**@var $addressRepository RegisteraddressRecipientListRepository * */
         $addressRepository = $this->getAddressRepository();
         $result = $addressRepository->findOneByEmail($email);
         $result->setHidden(true);
@@ -103,7 +97,6 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
      */
     public function disableRecipientById(int $recipient): void
     {
-        /**@var $addressRepository RegisteraddressRecipientListRepository * */
         $addressRepository = $this->getAddressRepository();
         $result = $addressRepository->findByUid($recipient);
         $result->setHidden(true);
@@ -111,11 +104,11 @@ class RegisteraddressRecipientList extends RecipientList implements RecipientLis
     }
 
     /**
-     * @return AddressRepository
+     * @return RegisteraddressRecipientRepository
      */
-    protected function getAddressRepository(): AddressRepository
+    protected function getAddressRepository(): RegisteraddressRecipientRepository
     {
-        /**@var $addressRepository AddressRepository * */
+        /**@var $addressRepository RegisteraddressRecipientRepository * */
         $addressRepository = GeneralUtility::makeInstance(RegisteraddressRecipientRepository::class);
         /**@var $defaultQuerySettings Typo3QuerySettings* */
         $defaultQuerySettings = $this->defaultQuerySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
