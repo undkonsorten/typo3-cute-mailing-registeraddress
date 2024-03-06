@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = [
         'depends' => [
             'typo3' => '11.5.0-12.9.99',
             'cute_mailing' => '4.0.0-4.99.99',
-            'registeraddress' => '2.0.0-5.99.99'
+            'registeraddress' => '2.0.0-6.99.99'
         ],
     ],
 ];
