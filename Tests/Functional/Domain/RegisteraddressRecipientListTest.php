@@ -1,5 +1,8 @@
 <?php
 
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -31,6 +34,9 @@ class RegisteraddressRecipientListTest extends FunctionalTestCase
      */
     public function recipientCanBeDeleted(): void
     {
+        $this->get(ConfigurationManagerInterface::class)->setRequest(
+            (new ServerRequest())->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE)
+        );
         /** @var PersistenceManager $persistenceManager */
         $persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $recipientListRepository = GeneralUtility::makeInstance(RegisteraddressRecipientListRepository::class);
