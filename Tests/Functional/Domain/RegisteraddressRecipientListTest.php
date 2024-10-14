@@ -10,10 +10,10 @@ class RegisteraddressRecipientListTest extends FunctionalTestCase
 {
 
     protected array $testExtensionsToLoad = [
+        'typo3conf/ext/taskqueue',
         'typo3conf/ext/cute_mailing',
         'typo3conf/ext/cute_mailing_registeraddress',
         'typo3conf/ext/tt_address',
-        'typo3conf/ext/taskqueue',
         'typo3conf/ext/registeraddress',
         'typo3conf/ext/registeraddress_logger',
     ];
